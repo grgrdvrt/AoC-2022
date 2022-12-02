@@ -1,4 +1,4 @@
-input = open("input").read().strip().split("\n\n")
+input = open("input_01").read().strip().split("\n\n")
 sums = [sum([int(num) for num in nums]) for nums in [vals.split("\n") for vals in input]]
 print(max(sums));
 print(sum(sorted(sums)[-3:]))
