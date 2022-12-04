@@ -2,20 +2,12 @@ import re
 
 input = open("input").read()
 
-_input = """
-"""
-lines = input.strip().split("\n")
-total = 0
-for line in lines:
-    a, b, c, d = [int(v) for v in re.findall("\d+", line)];
-    if (a <= c and b >= d) or (c <= a and d >= b):
-        total += 1
+ranges = [ [int(v) for v in re.findall("\d+", line)] for line in input.strip().split("\n") ]
+
+total = sum((a <= c and b >= d) or (c <= a and d >= b) for a, b, c, d in ranges)
 print(total)
 
-total = 0
-for line in lines:
-    a, b, c, d = [int(v) for v in re.findall("\d+", line)];
-    if not(b < c or d < a): total += 1
+total = sum(not(b < c or d < a) for a, b, c, d in ranges)
 print(total)
 
 # part 1: 3:18
