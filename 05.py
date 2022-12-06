@@ -1,8 +1,9 @@
 import re
 
-input = open("input").read()
+input = open("input_05").read()
 
 cols, moves = input.split("\n\n")
+
 
 # manually typed based on input
 cols = [
