@@ -20,20 +20,16 @@ for line in lines:
     if r[0] == "$":
         if r[1] == "cd":
             # change dir
-            name = r[2]
-            if name == "..":
+            if r[2] == "..":
                 currSize = node["size"]
                 node = node["parent"]
                 node["size"] += currSize
             else:
-                node = node["children"][name]
+                node = node["children"][r[2]]
     else :
         # read ls result
-        if r[0] == "dir":
-            node["children"].setdefault(r[1], makeDir(node))
-        else :
-            child = makeDir(node)
-            node["children"].setdefault(r[1], child)
+        child = node["children"].setdefault(r[1], makeDir(node))
+        if r[0] != "dir":
             child["size"] = int(r[0])
 
 
@@ -66,7 +62,6 @@ print("part1", collectSmallSizes(tree))
 #part 2
 totalAvailable = 70000000
 requiredSpace = 30000000
-tree = tree["children"]["/"]
 totalSize = tree["size"]
 currentUnused = totalAvailable - totalSize
 minSizeToDelete = requiredSpace - currentUnused
