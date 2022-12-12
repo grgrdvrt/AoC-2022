@@ -1,5 +1,5 @@
 import re
-input = open("input").read()
+input = open("input_11").read()
 
 
 monkeys = [monkey.strip().split("\n") for monkey in input.strip().split("\n\n")]
