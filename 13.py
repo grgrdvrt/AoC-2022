@@ -15,24 +15,13 @@ def compare(a, b):
                     break;
             if comp == 0:
                 comp = len(a) - len(b)
-
     return comp
 
-pairs = [[eval(p) for p in pair.strip().split("\n")] for pair in input.strip().split("\n\n")]
-count = 0
-for i, (a, b) in enumerate(pairs):
-    if compare(a, b) < 0:
-        count += i + 1
-print(count)
+pairs = [[eval(p) for p in pair.split("\n")] for pair in input.strip().split("\n\n")]
+print(sum([i + 1 for i, (a, b) in enumerate(pairs) if compare(a, b) < 0 ]))
 
-
-
-packets = [eval(packet) for packet in re.split("\n+", input.strip())]
-packets.append([[2]])
-packets.append([[6]])
-cmp = functools.cmp_to_key(compare)
-packets.sort(key=cmp)
-
+packets = [eval(packet) for packet in re.split("\n+", input.strip())] + [[[2]], [[6]]]
+packets.sort(key=functools.cmp_to_key(compare))
 print((1 + packets.index([[2]])) * (1 + packets.index([[6]])))
 
 #part1: 19:28
