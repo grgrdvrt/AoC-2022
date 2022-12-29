@@ -1,22 +1,12 @@
-import math
-import itertools
-import re
-
 input = open("input_24").read()
 
-left = -1
-right = 1
-up = -1j
-down = 1j
-stay = 0
-dirs = [left, right, up, down, stay]
+left, right, up, down, stay = dirs = [-1, 1, -1j, 1j, 0]
 dirsMap = {"<":left, ">":right, "^":up, "v":down}
 blizzards = []
 lines = input.strip().split("\n")
-xMin = 1
-yMin = 1
-xMax = len(lines[0].strip()) - 2
-yMax = len(lines) - 2
+xMin, xMax = 1, len(lines[0].strip()) - 2
+yMin, yMax = 1, len(lines) - 2
+
 for j, line in enumerate(lines):
     for i, c in enumerate(line.strip()):
         if c in dirsMap:
@@ -33,14 +23,10 @@ def find(blizzards, initialPosition, finalPosition):
         newBlizzards = []
         for b in blizzards:
             pos = b[0] + b[1]
-            if pos.real > xMax:
-                pos = xMin + pos.imag * 1j
-            elif pos.real < xMin:
-                pos = xMax + pos.imag * 1j
-            if pos.imag > yMax:
-                pos = pos.real + yMin * 1j
-            elif pos.imag < xMin:
-                pos = pos.real + yMax * 1j
+            if pos.real > xMax: pos = xMin + pos.imag * 1j
+            elif pos.real < xMin: pos = xMax + pos.imag * 1j
+            if pos.imag > yMax: pos = pos.real + yMin * 1j
+            elif pos.imag < xMin: pos = pos.real + yMax * 1j
             newBlizzards.append((pos, b[1], b[2]))
         blizzards = newBlizzards
 
